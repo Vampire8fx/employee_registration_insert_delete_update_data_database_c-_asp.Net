@@ -1,0 +1,58 @@
+////////////////////////////first create a database name employee
+
+////////////////////////////create a table name employee_details
+CREATE TABLE [dbo].[employee_details] (
+    [employee_id] INT          IDENTITY (1, 1) NOT NULL,
+    [firstname]   VARCHAR (50) NULL,
+    [lastname]    VARCHAR (50) NULL,
+    [phone]       VARCHAR (50) NULL,
+    [email]       VARCHAR (50) NULL,
+    [pincode]     VARCHAR (50) NULL,
+    [adress]      VARCHAR (50) NULL,
+    [password]    VARCHAR (50) NULL,
+    CONSTRAINT [PK_employee_details] PRIMARY KEY CLUSTERED ([employee_id] ASC)
+);
+////////////////////////////create a procedure for store data
+create proc useradd
+@employee_id int,
+@firstname varchar(50),
+@lastname varchar(50),
+@phone varchar(50),
+@email varchar(50),
+@pincode varchar(50),
+@adress varchar(50),
+@password varchar(50)
+as 
+if @employee_id =0
+begin
+	insert into employee_details(
+firstname ,
+lastname,
+phone,
+email ,
+pincode ,
+adress,
+password) values
+(
+@firstname ,
+@lastname,
+@phone,
+@email ,
+@pincode ,
+@adress,
+@password)
+end
+
+else
+begin
+	update employee_details set 
+	firstname =@firstname,
+lastname= @lastname,
+phone= @phone,
+email=@email ,
+pincode = @pincode,
+adress=@adress,
+password=@password
+where
+employee_id=@employee_id
+end
